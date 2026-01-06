@@ -1,72 +1,98 @@
-# LiqEngSim
-LiqEngSim is a Java-based simulation program that models the burn of a liquid rocket engine using a time-step approach. The program allows users to select different propellant combinations and visualizes the engine's performance over time.
+#LiqEngSim – Liquid Rocket Engine Simulator (Java)
 
-#Features:
-Interactive menu to select propellant types:
--LOX/Kerosene
--Liquid Hydrogen/LOX
--Nitrogen Tetroxide/UDMH
+LiqEngSim is a console-based Java program that simulates the burn and basic flight dynamics of a liquid rocket engine using a time-step numerical approach.
+Users can select different LOX-based propellant combinations, input propellant volumes, and observe thrust, velocity, and altitude evolution during engine burn.
 
-Simulates engine burn dynamics step by step
+#Key Features
+Multiple propellant combinations
 
-Calculates key performance parameters including:
--Mass flow rates
--Thrust
--Propellant consumption
+-LOX / Kerosene (RP‑1)
+-LOX / Methane
+-LOX / Liquid Hydrogen
 
-Adjustable time steps to observe how engine behavior evolves
+Physics-based thrust calculation using specific impulse (Isp)
 
-Console-based display for simplicity and clarity
+Mass flow rate split using oxidizer-to-fuel (O/F) ratio
 
-#Installation
+Time-step simulation with configurable resolution
 
-Make sure you have Java JDK 8 or higher installed.
+Basic 1D vertical flight model
+-Gravity
+-Acceleration
+-Velocity
+-Altitude
 
-Download the LiqEngSim.java file.
+Automatic engine cutoff detection
 
-Open a terminal/command prompt in the directory containing the file.
+Final burn summary including total impulse and max altitude
 
-Compile the program:
+#Propellant Models
+Propellant	Fuel Density (kg/m³)	O/F Ratio	Isp (s)
+LOX / Kerosene	810	2.56	300
+LOX / Methane	422	3.4	320
+LOX / Hydrogen	71	6.0	450
 
+Oxidizer density (LOX) is assumed constant at 1141 kg/m³.
+
+#Physics Model Overview
+Thrust= m x ISP x g
+Where: m = total mass flow rate (20 kg/s)
+ISP = specific impulse (depends on propellant)
+g= 9.81
+
+Acceleration:
+𝑎 =𝑇−𝑚𝑔/𝑚
+Vehicle mass decreases dynamically as propellant is consumed.
+
+Time Integration:
+-Fixed time step: 0.5 s
+-Euler integration for velocity and altitude
+
+#Inputs
+
+At runtime, the user provides:
+-Propellant combination
+-Fuel volume (liters)
+-Oxidizer volume (liters)
+
+#Outputs
+
+During the simulation, the program prints a time-step table:
+
+Time (s) | Thrust (N) | Fuel (L) | Ox (L) | Vel (m/s) | Alt (m)
+
+At the end, a burn summary is displayed:
+-Total burn time
+-Total impulse
+-Engine cutoff reason
+-Maximum altitude reached
+
+#How to Run
+Requirements:
+
+Java JDK 8 or higher
+Compile:
 javac LiqEngSim.java
 
-
-Run the program:
-
+Run:
 java LiqEngSim
 
-#Usage
+#Example Use Cases
 
-1-Launch the program
-2-Select a propellant type from the menu
-3-Input the simulation parameters as prompted (e.g., total burn time, time step)
-4-Observe the simulation output for each time step:
-Remaining fuel/oxidizer
-Thrust produced
-Engine performance metrics
-5-Repeat with different propellants or time steps for comparison.
+-Educational demonstrations of rocket propulsion
+-Introductory aerospace simulations
+-Physics-based programming projects
+-STEM outreach or competitions
+-Foundation for more advanced rocket modeling
 
-#Sample Output:
-Select propellant:
-1. LOX/Kerosene
-2. Liquid Hydrogen/LOX
-3. Nitrogen Tetroxide/UDMH
-Enter choice: 1
+#Possible Future Extensions
 
-Time: 0 s | Thrust: 500 kN | Fuel left: 810 kg | Oxidizer left: 1141 kg
-Time: 10 s | Thrust: 498 kN | Fuel left: 790 kg | Oxidizer left: 1115 kg
-...
+-Atmospheric drag
+-Variable mass flow rate
+-Multi-stage rockets
+-Export data to CSV for plotting
+-JavaFX or GUI visualization
+-Real engine datasets (Merlin, Raptor, Vulcain, etc.)
 
-#Constants and Inputs:
--Propellant Densities (kg/m³)
--Oxidizer/Fuel Ratios
--Burn time and time-step (user input)
--Thrust and engine efficiency (calculated per step)
 
-This project can be extended to include:
-
--More propellant options
--Graphical visualization of thrust and mass over time
--Integration with machine learning for predictive engine optimization
-
-Contributions are welcome! Fork the repository and submit pull requests.
+#This project is open-source and intended for educational and non-commercial use.
